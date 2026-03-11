@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR.js Video on Target</title>
+    <!-- Include A-Frame and AR.js -->
+    <script src="https://aframe.io"></script>
+    <script src="https://raw.githack.com"></script>
+  </head>
+
+  <body style="margin: 0px; overflow: hidden;">
+    <a-scene embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+      
+      <a-assets>
+        <!-- Replace 'your-video.mp4' with your video file path -->
+        <video id="ar-video" src="https://res.cloudinary.com/dwqggu16e/video/upload/v1773222479/nnjo2cbgs1svtkp7eqio.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      </a-assets>
+
+      <!-- Replace 'your-marker.patt' with your custom marker file -->
+      <a-marker type="pattern" url="https://res.cloudinary.com/dwqggu16e/raw/upload/v1773238385/pattern-qr_mind_mwoqxh.patt" id="video-marker">
+        <!-- Display the video on a flat plane -->
+        <a-video src="#ar-video" width="1.6" height="0.9" rotation="-90 0 0"></a-video>
+      </a-marker>
+
+      
+    </a-scene>
+
+    <script>
+      // Script to handle play/pause on marker detection
+      const marker = document.querySelector("#video-marker");
+      const video = document.querySelector("#ar-video");
+
+      marker.addEventListener("markerFound", () => {
+        video.play();
+      });
+
+      marker.addEventListener("markerLost", () => {
+        video.pause();
+      });
+    </script>
+  </body>
+</html>
